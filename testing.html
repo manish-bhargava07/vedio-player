@@ -1,0 +1,47 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player with Screenshot</title>
+</head>
+<body>
+    <video id="video" width="640" height="480" controls>
+        <source src="your-video-file.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <button id="capture">Take Screenshot</button>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    <img id="screenshot" alt="Screenshot will appear here">
+
+
+
+<script>
+    // Access the webcam
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            var video = document.getElementById('video');
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(function(err) {
+            console.log("An error occurred: " + err);
+        });
+
+    // Capture the image
+    document.getElementById('snap').addEventListener('click', function() {
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var video = document.getElementById('video');
+        context.drawImage(video, 0, 0, 640, 480);
+
+        // Create a thumbnail
+        var thumbnail = document.getElementById('thumbnail');
+        var thumbnailContext = thumbnail.getContext('2d');
+        thumbnailContext.drawImage(canvas, 0, 0, 160, 120);
+    });
+</script>
+</body>
+</html>

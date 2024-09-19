@@ -1,0 +1,7 @@
+#main{
+    display: flex;
+}
+.three{
+   margin-left: auto;
+    background-color: aqua;
+}
